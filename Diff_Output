@@ -1,0 +1,56 @@
+class BinarySearchTrees:
+    class node:
+        def __init__(self, value):
+            self.right = None
+            self.left = None
+            self.value = value
+
+    def __init__(self):
+        self.root = None
+
+    def print_list_only_left_values_After_That_Right(self, start, trc):
+        if start is not None:
+            trc += str(start.value) + '--> '
+            trc = (self.print_list_only_left_values_After_That_Right(start.left, trc))
+            trc = (self.print_list_only_left_values_After_That_Right(start.right, trc))
+        return trc
+
+    def insert(self, value):
+        if self.root is None:
+            self.root = self.node(value)
+        else:
+            currentValue = self.root
+            while True:
+                if value < currentValue.value:
+                    if currentValue.left is None:
+                        currentValue.left = self.node(value)
+                        return self
+                    else:
+                        currentValue = currentValue.left
+                else:
+                        if value == currentValue.value:
+                            print('Duplictaes Are Rerjected')
+                            return self
+                        if value > currentValue.value:
+                             if currentValue.right is None:
+                                 currentValue.right = self.node(value)
+                             else:
+                                 currentValue = currentValue.right
+
+
+c = BinarySearchTrees()
+c.insert(11)
+c.insert(9)
+c.insert(14)
+c.insert(12)
+c.insert(4)
+c.insert(2)
+c.insert(3)
+c.insert(18)
+c.insert(1)
+c.insert(2.5)
+print(c.print_list_only_left_values_After_That_Right(c.root, ' '))
+#            11
+#        9        14
+#      4   5    12  18
+#   2   3
